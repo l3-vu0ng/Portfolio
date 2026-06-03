@@ -1,19 +1,24 @@
-import React from 'react';
-import HeroBanner from './components/HeroBanner';
-import FeatureGrid from './components/FeatureGrid';
+import Navbar from './components/Navbar';
+import Hero from './components/Hero';
+import TechMarquee from './components/TechMarquee';
 import About from './components/About';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
+import Footer from './components/Footer';
 
 function App() {
   return (
-    <div className="app-container">
-      <HeroBanner />
-      <FeatureGrid />
-      <About />
-      <Projects />
-      <Contact />
-    </div>
+    <>
+      <Navbar />
+      <main className="app-container">
+        <Hero />
+        <TechMarquee />
+        <About />
+        <Projects />
+        <Contact />
+      </main>
+      <Footer />
+    </>
   );
 }
 
