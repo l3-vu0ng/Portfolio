@@ -1,27 +1,15 @@
+.about-editorial {
+  padding: 8rem 0;
+  border-bottom: 1px solid var(--glass-border);
+}
 .about-content {
-  display: flex;
-  gap: 2rem;
-  align-items: center;
-  justify-content: space-between;
-}
-.about-text {
-  flex: 1;
-  font-size: 1.2rem;
-}
-.skills-container {
-  flex: 1;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 1rem;
-}
-.skill-item {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 2rem;
   text-align: center;
-  font-weight: 600;
-  padding: 1rem;
-  cursor: default;
 }
-@media (max-width: 768px) {
-  .about-content {
-    flex-direction: column;
-  }
+.about-content .editorial-text {
+  font-size: 1.25rem;
+  line-height: 1.8;
+  margin-top: 2rem;
 }

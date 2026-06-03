@@ -3,34 +3,31 @@ import { motion } from 'framer-motion';
 import './About.css';
 
 const About = () => {
-  const skills = ['React', 'JavaScript', 'CSS', 'Framer Motion', 'Node.js', 'Git'];
-
   return (
-    <section className="section about-section" id="about">
-      <h2 className="section-title neon-text-cyan">About Me</h2>
+    <section className="about-editorial">
+      <div className="portfolio-tag">
+        <span className="tag">&#9654; ABOUT ME</span>
+      </div>
       <div className="about-content">
-        <motion.div 
-          className="glass about-text"
-          initial={{ opacity: 0, x: -50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.6 }}
+        <motion.h2 
+          className="editorial-heading"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
         >
-          <p>I am a passionate developer focusing on building interactive and stunning web applications. I love combining design and technology to create unique digital experiences.</p>
-        </motion.div>
-        <motion.div 
-          className="skills-container"
-          initial={{ opacity: 0, x: 50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.6 }}
+          Bridging the gap between design and engineering.
+        </motion.h2>
+        <motion.p 
+          className="editorial-text"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2 }}
         >
-          {skills.map((skill, index) => (
-            <div key={index} className="glass skill-item neon-text-purple">
-              {skill}
-            </div>
-          ))}
-        </motion.div>
+          I am a Software Engineer who specializes in building exceptional digital experiences. 
+          Currently, I'm focused on building accessible, human-centered products utilizing 
+          modern frameworks and deep systemic architectures.
+        </motion.p>
       </div>
     </section>
   );
