@@ -1,0 +1,22 @@
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+.project-card {
+  display: flex;
+  flex-direction: column;
+}
+.project-card h3 {
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+}
+.project-link {
+  display: inline-block;
+  margin-top: auto;
+  padding-top: 1.5rem;
+  font-size: 0.9rem;
+  align-self: flex-start;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}

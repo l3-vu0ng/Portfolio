@@ -1,0 +1,27 @@
+.about-content {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  justify-content: space-between;
+}
+.about-text {
+  flex: 1;
+  font-size: 1.2rem;
+}
+.skills-container {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
+}
+.skill-item {
+  text-align: center;
+  font-weight: 600;
+  padding: 1rem;
+  cursor: default;
+}
+@media (max-width: 768px) {
+  .about-content {
+    flex-direction: column;
+  }
+}
