@@ -1,25 +1,32 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import './Contact.css';
 
 const Contact = () => {
   return (
-    <section className="section" id="contact">
-      <h2 className="section-title neon-text-purple">Get In Touch</h2>
-      <motion.div 
-        className="glass contact-container"
-        initial={{ opacity: 0, scale: 0.9 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-      >
-        <p>Currently open for new opportunities and interesting projects.</p>
-        <div className="contact-links">
-          <a href="mailto:hello@example.com" className="btn-primary">Email Me</a>
-          <a href="https://github.com/l3-vu0ng" target="_blank" rel="noreferrer" className="btn-primary">GitHub</a>
+    <footer className="footer-editorial">
+      <div className="footer-top">
+        <span className="tag">&#9654; LIVE EVENTS</span>
+      </div>
+
+      <div className="footer-center">
+        <h2 className="footer-heading">Organizing a conference?</h2>
+        <button className="contact-btn tag">CONTACTS &rarr;</button>
+      </div>
+
+      <div className="footer-bottom">
+        <div className="social-links">
+          <div className="social-icon">Bē</div>
+          <div className="social-icon">D</div>
         </div>
-      </motion.div>
-    </section>
+        <div className="logo-placeholder">SS</div>
+        <div className="footer-nav">
+          <a href="#">About</a> / <a href="#">Work</a> / <a href="#">Shop</a> / <a href="#">Contacts</a>
+        </div>
+      </div>
+      <div className="footer-copyright tag">
+        2024 COPYRIGHT | SIMON SPARKS | ALL RIGHTS RESERVED
+      </div>
+    </footer>
   );
 };
 
