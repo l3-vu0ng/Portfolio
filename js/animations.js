@@ -33,14 +33,18 @@
     // ──────────────────────────────────────────
     const heroTL = gsap.timeline({ delay: 0.2 });
 
-    // Glass orbs scale in
-    heroTL.from('.glass-orb', {
-      scale: 0,
-      opacity: 0,
-      duration: 1,
-      ease: 'elastic.out(1, 0.5)',
-      stagger: 0.1,
-    }, 0.3);
+    // Cancer constellation fade in
+    heroTL.fromTo('.cancer-constellation',
+      { opacity: 0 },
+      { opacity: 1, duration: 1.5, ease: 'power1.inOut' },
+      0.3
+    );
+
+    heroTL.fromTo('.cancer-zodiac',
+      { opacity: 0, scale: 0.5, rotation: -20 },
+      { opacity: 0.06, scale: 1, rotation: 0, duration: 1.2, ease: 'power2.out', stagger: 0.3 },
+      0.5
+    );
 
     // Label "SOFTWARE ENGINEER"
     heroTL.fromTo('#hero-label',
@@ -253,12 +257,12 @@
     );
 
     // ──────────────────────────────────────────
-    // PARALLAX GLASS ORBS ON SCROLL
+    // CANCER CONSTELLATION PARALLAX ON SCROLL
     // ──────────────────────────────────────────
-    document.querySelectorAll('.glass-orb').forEach((orb, i) => {
-      const speed = 0.15 + i * 0.05;
-      gsap.to(orb, {
-        y: () => -window.innerHeight * speed,
+    const constellation = document.querySelector('.cancer-constellation');
+    if (constellation) {
+      gsap.to(constellation, {
+        y: -120,
         ease: 'none',
         scrollTrigger: {
           trigger: '#hero',
@@ -267,7 +271,7 @@
           scrub: 1,
         },
       });
-    });
+    }
 
     // ──────────────────────────────────────────
     // 3D CARD TILT (Cursor-following)

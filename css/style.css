@@ -101,48 +101,86 @@ body {
   pointer-events: none;
 }
 
-/* --- LIGHT THEME OVERLAY (Cursor Glass) --- */
-#light-theme-overlay {
+/* --- LIQUID GLASS LENS (Apple-inspired cursor) --- */
+#glass-lens {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 9998;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
   pointer-events: none;
-  clip-path: circle(0px at -100px -100px);
-  transition: clip-path 0.05s linear;
-  overflow: hidden;
+  z-index: 9998;
+  opacity: 0;
+  transition: opacity 0.35s ease, width 0.4s var(--spring), height 0.4s var(--spring);
+  will-change: transform;
+
+  /* Apple Liquid Glass material */
+  backdrop-filter: blur(18px) brightness(1.6) contrast(1.1) saturate(1.3);
+  -webkit-backdrop-filter: blur(18px) brightness(1.6) contrast(1.1) saturate(1.3);
+
+  /* Ultra-subtle edge — no harsh border */
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 255, 255, 0.06) 0%,
+    rgba(255, 255, 255, 0.03) 50%,
+    rgba(255, 255, 255, 0.01) 75%,
+    transparent 100%
+  );
+  box-shadow:
+    inset 0 0 30px rgba(255, 255, 255, 0.04),
+    0 0 40px rgba(91, 156, 246, 0.06);
+
+  /* Seamless feathered edge via mask */
+  mask-image: radial-gradient(
+    circle at center,
+    black 55%,
+    rgba(0,0,0,0.6) 70%,
+    rgba(0,0,0,0.2) 85%,
+    transparent 100%
+  );
+  -webkit-mask-image: radial-gradient(
+    circle at center,
+    black 55%,
+    rgba(0,0,0,0.6) 70%,
+    rgba(0,0,0,0.2) 85%,
+    transparent 100%
+  );
 }
 
-#light-theme-overlay .light-clone {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  min-height: 100%;
+#glass-lens.active {
+  opacity: 1;
 }
 
-/* --- CURSOR DOT --- */
+#glass-lens.hovering {
+  width: 280px;
+  height: 280px;
+}
+
+/* Hide old overlay */
+#light-theme-overlay {
+  display: none;
+}
+
+/* --- CURSOR DOT (small center point) --- */
 .cursor-dot {
   position: fixed;
-  width: 12px;
-  height: 12px;
-  background: var(--crystal-azure);
+  width: 8px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.8);
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
   transform: translate(-50%, -50%);
-  box-shadow: 0 0 12px var(--azure-glow), 0 0 24px var(--azure-frost);
-  transition: width 0.3s var(--spring), height 0.3s var(--spring), background 0.3s;
-  mix-blend-mode: screen;
+  opacity: 0;
+  transition: width 0.3s var(--spring), height 0.3s var(--spring), opacity 0.3s;
+  mix-blend-mode: difference;
 }
 
 .cursor-dot.hovering {
-  width: 48px;
-  height: 48px;
-  background: rgba(91, 156, 246, 0.15);
-  backdrop-filter: blur(4px);
+  width: 14px;
+  height: 14px;
+  background: rgba(255, 255, 255, 0.9);
 }
 
 /* --- TYPOGRAPHY --- */
@@ -480,28 +518,63 @@ section {
   50% { transform: translateY(-10px); }
 }
 
-/* Floating Glass Orbs */
-.glass-orb {
+/* Cancer Constellation + Zodiac Decorations */
+.cancer-constellation {
   position: absolute;
-  border-radius: 50%;
-  background: var(--azure-frost);
-  backdrop-filter: blur(40px);
-  -webkit-backdrop-filter: blur(40px);
-  border: 1px solid var(--glass-highlight);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
   z-index: 0;
 }
 
-.glass-orb-1 { width: 120px; height: 120px; top: 10%; left: 5%; animation: orbFloat1 6s ease-in-out infinite, orbRotate 25s linear infinite; }
-.glass-orb-2 { width: 80px; height: 80px; top: 60%; right: 8%; animation: orbFloat2 4.5s ease-in-out infinite, orbRotate 30s linear infinite reverse; }
-.glass-orb-3 { width: 60px; height: 60px; top: 25%; right: 25%; animation: orbFloat3 5.5s ease-in-out infinite, orbRotate 20s linear infinite; }
-.glass-orb-4 { width: 100px; height: 100px; bottom: 15%; left: 20%; animation: orbFloat1 5s ease-in-out infinite 1s, orbRotate 35s linear infinite reverse; }
-.glass-orb-5 { width: 40px; height: 40px; top: 40%; left: 45%; animation: orbFloat2 3.5s ease-in-out infinite 0.5s, orbRotate 22s linear infinite; }
+.cancer-constellation svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.12;
+  animation: constellationPulse 6s ease-in-out infinite;
+}
 
-@keyframes orbFloat1 { 0%, 100% { transform: translateY(0) translateX(0); } 50% { transform: translateY(-15px) translateX(5px); } }
-@keyframes orbFloat2 { 0%, 100% { transform: translateY(0) translateX(0); } 50% { transform: translateY(-10px) translateX(-8px); } }
-@keyframes orbFloat3 { 0%, 100% { transform: translateY(0) translateX(0); } 50% { transform: translateY(-12px) translateX(6px); } }
-@keyframes orbRotate { from { rotate: 0deg; } to { rotate: 360deg; } }
+.cancer-zodiac {
+  position: absolute;
+  font-size: 4rem;
+  color: var(--crystal-azure);
+  opacity: 0.06;
+  pointer-events: none;
+  z-index: 0;
+  animation: zodiacFloat 8s ease-in-out infinite;
+  font-family: serif;
+  user-select: none;
+}
+
+.cancer-zodiac-1 {
+  top: 12%;
+  right: 10%;
+  font-size: 3rem;
+  animation-delay: 0s;
+}
+
+.cancer-zodiac-2 {
+  bottom: 20%;
+  left: 8%;
+  font-size: 5rem;
+  opacity: 0.04;
+  animation-delay: 2s;
+}
+
+@keyframes constellationPulse {
+  0%, 100% { opacity: 0.10; }
+  50% { opacity: 0.18; }
+}
+
+@keyframes zodiacFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  33% { transform: translateY(-8px) rotate(2deg); }
+  66% { transform: translateY(4px) rotate(-1deg); }
+}
 
 /* --- BUTTONS --- */
 .btn-primary {
