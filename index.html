@@ -1,14 +1,357 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Le Vuong — Creative Developer. Full-stack software engineer specializing in scalable web solutions, performance, and clean architecture." />
-    <title>Le Vuong | Creative Developer</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vo Le Vuong — Software Engineer Portfolio</title>
+  <meta name="description" content="Portfolio of Vo Le Vuong, a Software Engineer specializing in Java, Python, Flutter, and IoT solutions. HCMUTE student building real-world applications.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700;800&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Scroll Progress -->
+  <div id="scroll-progress"></div>
+
+  <!-- Particle Canvas (Galaxy background) -->
+  <canvas id="particle-canvas"></canvas>
+
+  <!-- Custom Cursor -->
+  <div class="cursor-dot" id="cursor-dot"></div>
+
+  <!-- Light Theme Overlay (Cursor Glass Effect) -->
+  <div id="light-theme-overlay"></div>
+
+  <!-- ===== NAVIGATION ===== -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo">VLV</a>
+      <ul class="nav-links">
+        <li><a href="#about" data-section="about">About</a></li>
+        <li><a href="#skills" data-section="skills">Skills</a></li>
+        <li><a href="#projects" data-section="projects">Projects</a></li>
+        <li><a href="#experience" data-section="experience">Experience</a></li>
+        <li><a href="#contact" data-section="contact">Contact</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-overlay" id="mobile-overlay"></div>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="#about" data-mobile-link>About</a>
+    <a href="#skills" data-mobile-link>Skills</a>
+    <a href="#projects" data-mobile-link>Projects</a>
+    <a href="#experience" data-mobile-link>Experience</a>
+    <a href="#contact" data-mobile-link>Contact</a>
+  </div>
+
+  <!-- ===== HERO SECTION ===== -->
+  <section id="hero">
+    <!-- Glass Orbs -->
+    <div class="glass-orb glass-orb-1"></div>
+    <div class="glass-orb glass-orb-2"></div>
+    <div class="glass-orb glass-orb-3"></div>
+    <div class="glass-orb glass-orb-4"></div>
+    <div class="glass-orb glass-orb-5"></div>
+
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-text">
+          <span class="label-upper hero-label" id="hero-label">Software Engineer</span>
+          <h1 class="hero-name" id="hero-name"></h1>
+          <p class="hero-slogan" id="hero-slogan">Work hard, Play hard!</p>
+          <div class="hero-ctas" id="hero-ctas">
+            <a href="#projects" class="btn-primary">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+              View My Projects
+            </a>
+            <a href="#contact" class="btn-ghost">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              Contact Me
+            </a>
+          </div>
+        </div>
+        <div class="hero-photo-wrapper">
+          <div class="hero-photo-frame" id="hero-photo-frame">
+            <img src="assets/me.JPG" alt="Vo Le Vuong — Software Engineer" class="hero-photo" id="hero-photo">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT SECTION ===== -->
+  <section id="about">
+    <div class="container">
+      <h2 class="section-title reveal">About Me</h2>
+      <div class="about-grid">
+        <div class="about-accent-panel liquid-glass reveal">
+          <span class="about-code-symbol">&lt;/&gt;</span>
+        </div>
+        <div class="about-content">
+          <p class="reveal">A passionate 2nd-year student at Ho Chi Minh City University of Technology and Engineering (HCMUTE), pursuing Software Engineering. I love building real-world solutions that combine clean code with practical impact.</p>
+          <p class="reveal">My journey in tech spans from mobile apps with Flutter to IoT devices, from machine learning models to enterprise Java systems. I thrive at the intersection of creative problem-solving and technical precision.</p>
+          <div class="gpa-badge reveal">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.657 2.686 3 6 3s6-1.343 6-3v-5"/></svg>
+            GPA: 3.27 / 4.0
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SKILLS SECTION ===== -->
+  <section id="skills">
+    <div class="container">
+      <h2 class="section-title reveal">Technical Skills</h2>
+      <div class="skills-grid">
+        <div class="skill-group glass-card reveal">
+          <h3>Languages & Frameworks</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">C++</span>
+            <span class="skill-tag">Java</span>
+            <span class="skill-tag">Flutter</span>
+          </div>
+        </div>
+        <div class="skill-group glass-card reveal">
+          <h3>Databases</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">MySQL</span>
+            <span class="skill-tag">MS SQL Server</span>
+          </div>
+        </div>
+        <div class="skill-group glass-card reveal">
+          <h3>Knowledge</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">MVC Pattern</span>
+            <span class="skill-tag">LSTM</span>
+            <span class="skill-tag">DBSCAN</span>
+            <span class="skill-tag">MQTT Protocol</span>
+          </div>
+        </div>
+        <div class="skill-group glass-card reveal">
+          <h3>Tools</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">Git</span>
+            <span class="skill-tag">VS Code</span>
+            <span class="skill-tag">AI Assistants</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROJECTS SECTION ===== -->
+  <section id="projects">
+    <div class="container">
+      <h2 class="section-title reveal">Featured Projects</h2>
+      <div class="projects-grid">
+
+        <!-- Featured Project -->
+        <div class="project-card featured reveal">
+          <div class="glass-card project-card-inner" data-tilt>
+            <div class="project-image">
+              <span class="project-image-placeholder">&lt;/&gt;</span>
+            </div>
+            <h3 class="project-title">Job Search Management System</h3>
+            <p class="project-desc">A recruitment management system implementing MVC architecture with Hibernate/JPA for data persistence and enterprise-grade search functionality.</p>
+            <div class="project-tags">
+              <span class="project-tag">Java</span>
+              <span class="project-tag">Hibernate</span>
+              <span class="project-tag">JPA</span>
+              <span class="project-tag">MVC</span>
+            </div>
+            <a href="https://github.com/l3-vu0ng" class="project-link" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              View Source
+            </a>
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="project-card reveal">
+          <div class="glass-card project-card-inner" data-tilt>
+            <div class="project-image">
+              <span class="project-image-placeholder">IoT</span>
+            </div>
+            <h3 class="project-title">Smart IoT Wheelchair</h3>
+            <p class="project-desc">Hardware project using ESP32 and MQTT protocol, with a Flutter mobile app for remote control and health monitoring.</p>
+            <div class="project-tags">
+              <span class="project-tag">ESP32</span>
+              <span class="project-tag">MQTT</span>
+              <span class="project-tag">Flutter</span>
+              <span class="project-tag">IoT</span>
+            </div>
+            <a href="https://github.com/l3-vu0ng" class="project-link" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              View Source
+            </a>
+          </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="project-card reveal">
+          <div class="glass-card project-card-inner" data-tilt>
+            <div class="project-image">
+              <span class="project-image-placeholder">ML</span>
+            </div>
+            <h3 class="project-title">Flood Prediction Model</h3>
+            <p class="project-desc">Python-based visualization of flood conditions in Vietnam using LSTM neural networks and DBSCAN clustering algorithms.</p>
+            <div class="project-tags">
+              <span class="project-tag">Python</span>
+              <span class="project-tag">LSTM</span>
+              <span class="project-tag">DBSCAN</span>
+              <span class="project-tag">Data Viz</span>
+            </div>
+            <a href="https://github.com/l3-vu0ng" class="project-link" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              View Source
+            </a>
+          </div>
+        </div>
+
+        <!-- Project 4 -->
+        <div class="project-card reveal">
+          <div class="glass-card project-card-inner" data-tilt>
+            <div class="project-image">
+              <span class="project-image-placeholder">SQL</span>
+            </div>
+            <h3 class="project-title">Sales Management Software</h3>
+            <p class="project-desc">Desktop management application built with Java Swing and SQL for inventory tracking, sales reporting, and customer management.</p>
+            <div class="project-tags">
+              <span class="project-tag">Java</span>
+              <span class="project-tag">Swing</span>
+              <span class="project-tag">SQL</span>
+              <span class="project-tag">Desktop</span>
+            </div>
+            <a href="https://github.com/l3-vu0ng" class="project-link" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              View Source
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== EXPERIENCE SECTION ===== -->
+  <section id="experience">
+    <div class="container">
+      <h2 class="section-title reveal">Experience & Volunteer</h2>
+      <div class="timeline">
+        <div class="timeline-line"></div>
+        <div class="timeline-line-fill" id="timeline-fill"></div>
+
+        <div class="timeline-entry reveal">
+          <div class="timeline-node"></div>
+          <span class="timeline-date">2026</span>
+          <div class="timeline-card glass-card">
+            <h3>Xuan Tinh Nguyen 2026 Campaign</h3>
+            <p>Volunteered in a community service campaign providing aid and support in rural areas of Dong Thap Province. Organized logistics and coordinated team activities for educational outreach programs.</p>
+          </div>
+        </div>
+
+        <div class="timeline-entry reveal">
+          <div class="timeline-node"></div>
+          <span class="timeline-date">2025 — 2026</span>
+          <div class="timeline-card glass-card">
+            <h3>Data Management & Admin Support</h3>
+            <p>Managed student data and provided administrative support at the Academic Affairs Office of HCMUTE. Streamlined data entry processes and maintained database integrity across multiple systems.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT SECTION ===== -->
+  <section id="contact">
+    <div class="container">
+      <h2 class="section-title reveal">Get In Touch</h2>
+      <div class="contact-grid">
+        <div class="social-links reveal">
+          <a href="https://github.com/l3-vu0ng" target="_blank" rel="noopener" class="social-link glass-card">
+            <div class="social-icon">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            </div>
+            <div>
+              <div class="social-label">GitHub</div>
+              <div class="social-handle">@l3-vu0ng</div>
+            </div>
+          </a>
+          <a href="https://linkedin.com/in/l3vu0ng" target="_blank" rel="noopener" class="social-link glass-card">
+            <div class="social-icon">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            </div>
+            <div>
+              <div class="social-label">LinkedIn</div>
+              <div class="social-handle">@l3vu0ng</div>
+            </div>
+          </a>
+          <a href="https://facebook.com/l3vu0ng" target="_blank" rel="noopener" class="social-link glass-card">
+            <div class="social-icon">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </div>
+            <div>
+              <div class="social-label">Facebook</div>
+              <div class="social-handle">@l3vu0ng</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="glass-card reveal">
+          <form class="contact-form" id="contact-form" novalidate>
+            <div class="form-group">
+              <label for="name">Your Name</label>
+              <input type="text" id="name" name="name" placeholder="e.g. John Doe" required>
+              <span class="error-text">Please enter your name</span>
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" placeholder="e.g. john@example.com" required>
+              <span class="error-text">Please enter a valid email</span>
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" placeholder="Tell me about your project or just say hello..." required></textarea>
+              <span class="error-text">Please enter a message</span>
+            </div>
+            <button type="submit" class="btn-primary btn-submit">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <p>Built with passion by Vo Le Vuong &copy; 2026</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/particles.js"></script>
+  <script src="js/cursor-glass.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/main.js"></script>
+</body>
 </html>
