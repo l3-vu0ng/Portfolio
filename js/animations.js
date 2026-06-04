@@ -40,12 +40,6 @@
       0.3
     );
 
-    heroTL.fromTo('.cancer-zodiac',
-      { opacity: 0, scale: 0.5, rotation: -20 },
-      { opacity: 0.06, scale: 1, rotation: 0, duration: 1.2, ease: 'power2.out', stagger: 0.3 },
-      0.5
-    );
-
     // Label "SOFTWARE ENGINEER"
     heroTL.fromTo('#hero-label',
       { opacity: 0, y: 20 },

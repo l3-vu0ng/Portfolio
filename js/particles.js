@@ -1,7 +1,7 @@
 /* ===================================================================
-   PARTICLE CONSTELLATION + GALAXY + TECH DEVICE STARS
-   Canvas-based particle system with cursor gravity and floating
-   SVG tech icons (monitor, keyboard, chip, mouse, cable) as stars.
+   MINIMALIST GALAXY BACKGROUND (NON-INTERACTIVE)
+   A deep-space particle system with twinkling stars of varying sizes
+   and purely geometric, line-art tech icons floating weightlessly.
    =================================================================== */
 
 (function () {
@@ -21,142 +21,89 @@
     return;
   }
 
-  const PARTICLE_COUNT = isTablet ? 30 : 65;
-  const TECH_ICON_COUNT = isTablet ? 5 : 10;
-  const CONNECTION_DIST = 120;
-  const CURSOR_RADIUS = 200;
-  const STIFFNESS = 0.003;
-  const DAMPING = 0.92;
-  const AZURE = { r: 91, g: 156, b: 246 };
+  const PARTICLE_COUNT = isTablet ? 60 : 150; // Increased count for a denser starfield
+  const TECH_ICON_COUNT = isTablet ? 6 : 12;
 
-  let mouse = { x: -1000, y: -1000 };
   let particles = [];
   let techIcons = [];
   let W, H;
 
-  // --- Tech Device SVG Paths (small icons as "constellation stars") ---
+  // --- Minimalist Tech Device SVG Paths ---
+  // Abstract, metaphorical minimalism. Giant thin wireframes.
   const techShapes = [
-    // Monitor
+    // Abstract Monitor
     function (ctx, x, y, size, opacity) {
-      ctx.save();
-      ctx.translate(x, y);
-      ctx.globalAlpha = opacity;
-      ctx.strokeStyle = `rgba(${AZURE.r},${AZURE.g},${AZURE.b},${opacity})`;
-      ctx.lineWidth = 1;
+      ctx.save(); ctx.translate(x, y); ctx.globalAlpha = opacity;
+      ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})`; ctx.lineWidth = 1.5;
+      
+      // Floating screen frame
       ctx.beginPath();
-      ctx.roundRect(-size / 2, -size / 2.5, size, size * 0.65, 2);
+      ctx.rect(-size / 2, -size * 0.3, size, size * 0.6);
       ctx.stroke();
+      
+      // Minimalist disconnected stand
       ctx.beginPath();
-      ctx.moveTo(0, size * 0.15);
-      ctx.lineTo(0, size * 0.35);
+      ctx.moveTo(-size * 0.15, size * 0.45);
+      ctx.lineTo(size * 0.15, size * 0.45);
       ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(-size * 0.25, size * 0.35);
-      ctx.lineTo(size * 0.25, size * 0.35);
-      ctx.stroke();
+      
       ctx.restore();
     },
-    // Keyboard
+    // Abstract Keyboard
     function (ctx, x, y, size, opacity) {
-      ctx.save();
-      ctx.translate(x, y);
-      ctx.globalAlpha = opacity;
-      ctx.strokeStyle = `rgba(${AZURE.r},${AZURE.g},${AZURE.b},${opacity})`;
-      ctx.lineWidth = 1;
+      ctx.save(); ctx.translate(x, y); ctx.globalAlpha = opacity;
+      ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})`; ctx.lineWidth = 1.5;
+      
+      // Chassis
       ctx.beginPath();
-      ctx.roundRect(-size / 2, -size / 4, size, size * 0.5, 2);
+      ctx.rect(-size * 0.6, -size * 0.2, size * 1.2, size * 0.4);
       ctx.stroke();
-      for (let r = 0; r < 3; r++) {
-        for (let c = 0; c < 4; c++) {
-          ctx.fillStyle = `rgba(${AZURE.r},${AZURE.g},${AZURE.b},${opacity * 0.4})`;
-          ctx.fillRect(-size * 0.38 + c * size * 0.22, -size * 0.12 + r * size * 0.14, size * 0.14, size * 0.08);
-        }
-      }
+      
+      // Metaphorical keys (just a few geometric lines)
+      ctx.beginPath(); ctx.moveTo(-size * 0.4, size * 0.05); ctx.lineTo(-size * 0.1, size * 0.05); ctx.stroke(); // Spacebar
+      ctx.beginPath(); ctx.moveTo(size * 0.2, -size * 0.05); ctx.lineTo(size * 0.4, -size * 0.05); ctx.stroke(); // Right keys
+      ctx.beginPath(); ctx.moveTo(-size * 0.4, -size * 0.05); ctx.lineTo(-size * 0.3, -size * 0.05); ctx.stroke(); // Left key
+      
       ctx.restore();
     },
-    // CPU Chip
+    // Abstract Mouse
     function (ctx, x, y, size, opacity) {
-      ctx.save();
-      ctx.translate(x, y);
-      ctx.globalAlpha = opacity;
-      ctx.strokeStyle = `rgba(${AZURE.r},${AZURE.g},${AZURE.b},${opacity})`;
-      ctx.lineWidth = 1;
-      const half = size * 0.35;
-      ctx.strokeRect(-half, -half, half * 2, half * 2);
-      ctx.strokeRect(-half * 0.6, -half * 0.6, half * 1.2, half * 1.2);
-      for (let i = -1; i <= 1; i++) {
-        ctx.beginPath();
-        ctx.moveTo(i * half * 0.5, -half);
-        ctx.lineTo(i * half * 0.5, -half - size * 0.12);
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.moveTo(i * half * 0.5, half);
-        ctx.lineTo(i * half * 0.5, half + size * 0.12);
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.moveTo(-half, i * half * 0.5);
-        ctx.lineTo(-half - size * 0.12, i * half * 0.5);
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.moveTo(half, i * half * 0.5);
-        ctx.lineTo(half + size * 0.12, i * half * 0.5);
-        ctx.stroke();
-      }
-      ctx.restore();
-    },
-    // Mouse
-    function (ctx, x, y, size, opacity) {
-      ctx.save();
-      ctx.translate(x, y);
-      ctx.globalAlpha = opacity;
-      ctx.strokeStyle = `rgba(${AZURE.r},${AZURE.g},${AZURE.b},${opacity})`;
-      ctx.lineWidth = 1;
+      ctx.save(); ctx.translate(x, y); ctx.globalAlpha = opacity;
+      ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})`; ctx.lineWidth = 1.5;
+      
+      // Sleek pill shape
       ctx.beginPath();
-      ctx.ellipse(0, 0, size * 0.25, size * 0.4, 0, 0, Math.PI * 2);
+      ctx.roundRect(-size * 0.25, -size * 0.4, size * 0.5, size * 0.8, size * 0.25);
       ctx.stroke();
+      
+      // Infinite scroll line
       ctx.beginPath();
       ctx.moveTo(0, -size * 0.4);
-      ctx.lineTo(0, -size * 0.1);
+      ctx.lineTo(0, size * 0.1);
       ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(-size * 0.25, -size * 0.05);
-      ctx.lineTo(size * 0.25, -size * 0.05);
-      ctx.stroke();
+      
       ctx.restore();
     },
-    // Cable/USB
+    // Abstract Chip/Grid
     function (ctx, x, y, size, opacity) {
-      ctx.save();
-      ctx.translate(x, y);
-      ctx.globalAlpha = opacity;
-      ctx.strokeStyle = `rgba(${AZURE.r},${AZURE.g},${AZURE.b},${opacity})`;
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.roundRect(-size * 0.12, -size * 0.3, size * 0.24, size * 0.25, 1);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(0, -size * 0.05);
-      ctx.bezierCurveTo(size * 0.2, size * 0.1, -size * 0.2, size * 0.25, 0, size * 0.4);
-      ctx.stroke();
-      ctx.restore();
-    },
-    // Code brackets < >
-    function (ctx, x, y, size, opacity) {
-      ctx.save();
-      ctx.translate(x, y);
-      ctx.globalAlpha = opacity;
-      ctx.strokeStyle = `rgba(${AZURE.r},${AZURE.g},${AZURE.b},${opacity})`;
-      ctx.lineWidth = 1.2;
-      ctx.beginPath();
-      ctx.moveTo(-size * 0.15, -size * 0.25);
-      ctx.lineTo(-size * 0.35, 0);
-      ctx.lineTo(-size * 0.15, size * 0.25);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(size * 0.15, -size * 0.25);
-      ctx.lineTo(size * 0.35, 0);
-      ctx.lineTo(size * 0.15, size * 0.25);
-      ctx.stroke();
+      ctx.save(); ctx.translate(x, y); ctx.globalAlpha = opacity;
+      ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})`; ctx.lineWidth = 1.5;
+      
+      const half = size * 0.3;
+      // Core
+      ctx.strokeRect(-half, -half, half * 2, half * 2);
+      
+      // Floating data lines
+      ctx.beginPath(); ctx.moveTo(-half * 1.5, -half * 0.5); ctx.lineTo(-half, -half * 0.5); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(-half * 1.5, half * 0.5); ctx.lineTo(-half, half * 0.5); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(half, -half * 0.5); ctx.lineTo(half * 1.5, -half * 0.5); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(half, half * 0.5); ctx.lineTo(half * 1.5, half * 0.5); ctx.stroke();
+      
+      ctx.beginPath(); ctx.moveTo(-half * 0.5, -half * 1.5); ctx.lineTo(-half * 0.5, -half); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(half * 0.5, -half * 1.5); ctx.lineTo(half * 0.5, -half); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(-half * 0.5, half); ctx.lineTo(-half * 0.5, half * 1.5); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(half * 0.5, half); ctx.lineTo(half * 0.5, half * 1.5); ctx.stroke();
+      
       ctx.restore();
     }
   ];
@@ -171,20 +118,20 @@
 
   // --- Create particles ---
   function createParticle() {
+    // Generate varying sizes to create depth (small distant stars vs large close ones)
+    // Most stars are tiny (0.3 - 1.0), but a few are larger (up to 2.5)
+    let radius = Math.random() < 0.85 ? (Math.random() * 0.7 + 0.3) : (Math.random() * 1.5 + 1.0);
+    
     return {
       x: Math.random() * W,
       y: Math.random() * H,
-      baseX: 0,
-      baseY: 0,
-      vx: 0,
-      vy: 0,
-      radius: Math.random() * 1.5 + 0.5,
-      opacity: Math.random() * 0.3 + 0.15,
-      twinkle: Math.random() < 0.1,
-      twinkleSpeed: Math.random() * 0.02 + 0.01,
+      radius: radius,
+      opacity: Math.random() * 0.4 + 0.1,
+      twinkle: Math.random() < 0.2, // 20% of stars twinkle
+      twinkleSpeed: Math.random() * 0.015 + 0.005,
       twinklePhase: Math.random() * Math.PI * 2,
-      driftX: (Math.random() - 0.5) * 0.15,
-      driftY: (Math.random() - 0.5) * 0.1,
+      driftX: (Math.random() - 0.5) * 0.2, // Ultra-slow organic drift
+      driftY: (Math.random() - 0.5) * 0.2,
     };
   }
 
@@ -192,38 +139,23 @@
     return {
       x: Math.random() * W,
       y: Math.random() * H,
-      vx: 0,
-      vy: 0,
-      size: Math.random() * 12 + 16,
-      opacity: Math.random() * 0.15 + 0.08,
+      size: Math.random() * 150 + 100, // Giant scale: 100px to 250px
+      opacity: Math.random() * 0.08 + 0.04, // Very subtle, ghostly presence
       rotation: Math.random() * Math.PI * 2,
-      rotationSpeed: (Math.random() - 0.5) * 0.003,
-      driftX: (Math.random() - 0.5) * 0.12,
-      driftY: (Math.random() - 0.5) * 0.08,
+      rotationSpeed: (Math.random() - 0.5) * 0.005, // Smooth rotation
+      driftX: (Math.random() - 0.5) * 0.6, // More noticeable drifting speed
+      driftY: (Math.random() - 0.5) * 0.6,
       shapeIndex: index % techShapes.length,
     };
   }
 
   // Initialize
   for (let i = 0; i < PARTICLE_COUNT; i++) {
-    const p = createParticle();
-    p.baseX = p.x;
-    p.baseY = p.y;
-    particles.push(p);
+    particles.push(createParticle());
   }
   for (let i = 0; i < TECH_ICON_COUNT; i++) {
     techIcons.push(createTechIcon(i));
   }
-
-  // --- Mouse tracking ---
-  document.addEventListener('mousemove', (e) => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
-  });
-  document.addEventListener('mouseleave', () => {
-    mouse.x = -1000;
-    mouse.y = -1000;
-  });
 
   // --- Animation loop ---
   let frameCount = 0;
@@ -233,96 +165,46 @@
     ctx.clearRect(0, 0, W, H);
     frameCount++;
 
-    // -- Draw connection lines --
-    for (let i = 0; i < particles.length; i++) {
-      for (let j = i + 1; j < particles.length; j++) {
-        const dx = particles[i].x - particles[j].x;
-        const dy = particles[i].y - particles[j].y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < CONNECTION_DIST) {
-          const alpha = (1 - dist / CONNECTION_DIST) * 0.12;
-          ctx.beginPath();
-          ctx.strokeStyle = `rgba(${AZURE.r},${AZURE.g},${AZURE.b},${alpha})`;
-          ctx.lineWidth = 0.5;
-          ctx.moveTo(particles[i].x, particles[i].y);
-          ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.stroke();
-        }
-      }
-    }
-
-    // -- Update & draw particles --
+    // -- Update & draw particles (Stars) --
     for (const p of particles) {
-      // Cursor gravity
-      const dx = mouse.x - p.x;
-      const dy = mouse.y - p.y;
-      const dist = Math.sqrt(dx * dx + dy * dy);
+      // Move gently
+      p.x += p.driftX;
+      p.y += p.driftY;
 
-      if (dist < CURSOR_RADIUS && dist > 0) {
-        const force = (CURSOR_RADIUS - dist) / CURSOR_RADIUS;
-        p.vx += dx * STIFFNESS * force;
-        p.vy += dy * STIFFNESS * force;
-      }
-
-      // Return to base drift
-      p.vx += p.driftX * 0.01;
-      p.vy += p.driftY * 0.01;
-
-      // Damping
-      p.vx *= DAMPING;
-      p.vy *= DAMPING;
-
-      // Move
-      p.x += p.vx + p.driftX;
-      p.y += p.vy + p.driftY;
-
-      // Wrap around
+      // Wrap around screen edges seamlessly
       if (p.x < -20) p.x = W + 20;
       if (p.x > W + 20) p.x = -20;
       if (p.y < -20) p.y = H + 20;
       if (p.y > H + 20) p.y = -20;
 
-      // Twinkle
-      let opacity = p.opacity;
+      // Twinkle effect
+      let currentOpacity = p.opacity;
       if (p.twinkle) {
-        opacity = p.opacity + Math.sin(frameCount * p.twinkleSpeed + p.twinklePhase) * 0.25;
-        opacity = Math.max(0.05, Math.min(0.7, opacity));
+        currentOpacity = p.opacity + Math.sin(frameCount * p.twinkleSpeed + p.twinklePhase) * 0.3;
+        currentOpacity = Math.max(0.05, Math.min(0.8, currentOpacity));
       }
 
-      // Draw
+      // Draw star
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(${AZURE.r},${AZURE.g},${AZURE.b},${opacity})`;
+      ctx.fillStyle = `rgba(255, 255, 255, ${currentOpacity})`;
       ctx.fill();
     }
 
-    // -- Update & draw tech icons --
+    // -- Update & draw tech icons (Floating Space Debris) --
     for (const icon of techIcons) {
-      // Cursor influence (lighter)
-      const dx = mouse.x - icon.x;
-      const dy = mouse.y - icon.y;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-
-      if (dist < CURSOR_RADIUS * 1.2 && dist > 0) {
-        const force = (CURSOR_RADIUS * 1.2 - dist) / (CURSOR_RADIUS * 1.2);
-        icon.vx += dx * STIFFNESS * 0.3 * force;
-        icon.vy += dy * STIFFNESS * 0.3 * force;
-      }
-
-      icon.vx *= 0.95;
-      icon.vy *= 0.95;
-
-      icon.x += icon.vx + icon.driftX;
-      icon.y += icon.vy + icon.driftY;
+      // Move gently
+      icon.x += icon.driftX;
+      icon.y += icon.driftY;
       icon.rotation += icon.rotationSpeed;
 
-      // Wrap
+      // Wrap around screen edges
       if (icon.x < -40) icon.x = W + 40;
       if (icon.x > W + 40) icon.x = -40;
       if (icon.y < -40) icon.y = H + 40;
       if (icon.y > H + 40) icon.y = -40;
 
-      // Draw with rotation
+      // Draw minimalist icon with rotation
       ctx.save();
       ctx.translate(icon.x, icon.y);
       ctx.rotate(icon.rotation);
